@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<schema>
+
+    <properties>
+        <property name="package.name" value="jetbrick.sample" />   
+        
+        <!-- schema, oam, hibernate, report -->
+        <property name="task.name" value="schema, oam, report" />
+        <property name="task.dialect" value="MySQL, SQLServer, H2" />
+        
+        <property name="output.encoding" value="utf-8" />
+        <property name="output.path" value="./output" />
+    </properties>
+
+    <aliases>
+        <!--
+        <alias from="uuid" to="char(16)" />
+        <alias from="date" to="date_string" />
+        <alias from="time" to="time_string" />
+        <alias from="datetime" to="datetime_string" />
+        -->
+    </aliases>
+
+    <enum-list>
+        <enum-group file="enum/schema_enum.xml" />
+    </enum-list>
+
+    <table-list>
+        <!-- user -->
+        <table file="app/login_info.xml" />
+        
+        <!-- article -->
+        <table file="app/article_info.xml" />
+        <table file="app/tag_info.xml" />
+        <table file="app/tag_rel.xml" />
+
+        <!-- file -->
+        <table file="app/upload_file.xml" />
+        
+    </table-list>
+
+    <bulk-list>
+
+    </bulk-list>
+
+</schema>

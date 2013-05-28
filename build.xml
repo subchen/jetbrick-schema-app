@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="codegen.app" basedir=".">
+
+	<property file="${basedir}/build.properties" />
+	<property name="output" value="${basedir}/output" />
+
+    <path id="compile.classpath">
+        <fileset dir="${basedir}/lib" includes="**/*.jar" />
+    	<fileset dir="${basedir}/../jetbrick-framework" includes="**/*.jar" />
+    </path>
+
+    <patternset id="compile.resource">
+        <include name="**/*.httl" />
+        <include name="**/*.xml" />
+    </patternset>
+
+    <target name="compile.clean">
+        <delete>
+            <fileset dir="${basedir}/bin" includes="*.*" />
+            <fileset dir="${basedir}" includes="*.jar" />
+        </delete>
+    </target>
+
+    <target name="compile" depends="compile.clean">
+        <javac destdir="${basedir}/bin" classpathref="compile.classpath" 
+               debug="on" encoding="utf-8" 
+               nowarn="true" deprecation="off" 
+               source="1.6" target="1.6" 
+               includeantruntime="on">
+            <src path="${basedir}/src/main/java" />
+        </javac>
+        
+        <copy todir="${basedir}/bin">
+            <fileset dir="${basedir}/src/main/resources" >
+                <patternset refid="compile.resource" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar jarfile="${basedir}/jetbrick-schema-app-1.0.jar" whenempty="fail">
+            <fileset dir="${basedir}/bin">
+                <include name="jetbrick/schema/app/**/*.class" />
+            	<include name="config/**/*.httl" />
+            	<include name="logback.xml" />
+            </fileset>
+        </jar>
+    </target>
+
+	<target name="codegen.clean">
+		<delete dir="${output}" />
+	</target>
+
+	<target name="codegen.app" depends="codegen.clean">
+		<java classname="jetbrick.schema.app.SchemaGenerateApp" 
+			  classpathref="compile.classpath" 
+			  fork="yes">
+			<classpath>
+				<fileset dir="${basedir}" includes="**/*.jar" />
+			</classpath>
+			<arg value="${basedir}/src/test/resources/schema/schema.xml" />
+		</java>
+	</target>
+
+</project>

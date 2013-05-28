@@ -1,0 +1,7 @@
+from ${table.className} where 1=1
+
+#foreach($c in $table.columns)
+#^if( $^vm.exist($^${c.variableName}) )
+	 and ${c.variableName} = :${c.variableName}
+#^end
+#end
