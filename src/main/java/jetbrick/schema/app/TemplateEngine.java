@@ -12,8 +12,8 @@ public class TemplateEngine {
 
     private static Properties getEngineConfig() {
         Properties p = new Properties();
-        p.setProperty("import.packages+", "jetbrick.schema.app.modal");
-        p.setProperty("import.methods+", "jetbrick.schema.app.modal.methods.JsonUtils, jetbrick.schema.app.modal.methods.ChecksumUtils,jetbrick.schema.app.modal.methods.TableInfoUtils,jetbrick.schema.app.modal.methods.TableColumnUtils");
+        p.setProperty("import.packages+", "jetbrick.schema.app.model");
+        p.setProperty("import.methods+", "jetbrick.schema.app.model.methods.JsonUtils, jetbrick.schema.app.model.methods.ChecksumUtils,jetbrick.schema.app.model.methods.TableInfoUtils,jetbrick.schema.app.model.methods.TableColumnUtils");
         p.setProperty("import.variables+", "Schema schema, TableInfo table");
 
         p.setProperty("input.encoding", "utf-8");

@@ -2,7 +2,7 @@ package jetbrick.schema.app.task;
 
 import jetbrick.dao.dialect.Dialect;
 import jetbrick.schema.app.Task;
-import jetbrick.schema.app.modal.*;
+import jetbrick.schema.app.model.*;
 
 public class SqlTask extends Task {
 

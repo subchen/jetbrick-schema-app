@@ -3,7 +3,7 @@ package jetbrick.schema.app.reader;
 import java.util.ArrayList;
 import java.util.List;
 import jetbrick.commons.lang.CamelCaseUtils;
-import jetbrick.schema.app.modal.*;
+import jetbrick.schema.app.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

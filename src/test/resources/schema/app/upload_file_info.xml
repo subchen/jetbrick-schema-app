@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<table display_name="文件">
+
+    <column name="parent_id"
+            type="ID"
+            nullable="true"
+            display_name="ParentID"
+            />
+    <column name="parent_type"
+            type="varchar(50)"
+            nullable="true"
+            display_name="文件分类"
+            />
+
+    <column name="disk_file_name"
+            type="varchar(250)"
+            display_name="存储文件名"
+            />
+
+    <column name="original_file_name"
+            type="varchar(250)"
+            display_name="原始文件名"
+            />
+
+    <column name="destination_file_name"
+            type="varchar(250)"
+            display_name="显示文件名"
+            />
+
+    <column name="file_ext"
+            type="varchar(10)"
+            display_name="文件扩展名"
+            />
+
+    <column name="size"
+            type="long"
+            display_name="文件大小"
+            />
+
+    <column name="uploader_id"
+            type="ID"
+            display_name="上传用户"
+            >
+         <one-to-many reference-table="login_info" import-name="last_user" export-name="auto" />
+    </column>
+
+    <column name="last_date" 
+            type="datetime"	
+            display_name="上传时间"
+            />
+</table>
+

@@ -3,7 +3,7 @@ package jetbrick.schema.app.task;
 import java.util.Map;
 import jetbrick.dao.dialect.Dialect;
 import jetbrick.schema.app.Task;
-import jetbrick.schema.app.modal.TableInfo;
+import jetbrick.schema.app.model.TableInfo;
 
 public class HibernateTask extends Task {
 

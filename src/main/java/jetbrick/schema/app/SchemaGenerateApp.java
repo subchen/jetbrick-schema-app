@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.*;
 import jetbrick.commons.bean.ClassFinder;
 import jetbrick.commons.exception.SystemException;
-import jetbrick.schema.app.modal.Schema;
+import jetbrick.schema.app.model.Schema;
 import jetbrick.schema.app.reader.SchemaXmlFileReader;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

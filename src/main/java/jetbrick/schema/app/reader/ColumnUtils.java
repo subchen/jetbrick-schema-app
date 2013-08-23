@@ -13,7 +13,7 @@ import jetbrick.dao.dialect.SqlType;
 import jetbrick.dao.dialect.SubStyleType;
 import jetbrick.dao.schema.validator.Validator;
 import jetbrick.dao.schema.validator.ValidatorFactory;
-import jetbrick.schema.app.modal.*;
+import jetbrick.schema.app.model.*;
 import org.apache.commons.beanutils.BeanUtils;
 
 public class ColumnUtils {

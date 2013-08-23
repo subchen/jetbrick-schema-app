@@ -2,7 +2,7 @@ package jetbrick.schema.app.task;
 
 import java.util.Map;
 import jetbrick.schema.app.Task;
-import jetbrick.schema.app.modal.BulkFile;
+import jetbrick.schema.app.model.BulkFile;
 
 public class XmlSchemaTask extends Task {
 

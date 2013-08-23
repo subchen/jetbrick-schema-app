@@ -3,7 +3,7 @@ package jetbrick.schema.app.reader;
 import java.io.File;
 import jetbrick.commons.exception.SystemException;
 import jetbrick.commons.xml.XmlNode;
-import jetbrick.schema.app.modal.Schema;
+import jetbrick.schema.app.model.Schema;
 
 /**
  * 从 schema.xml 文件中读取 schema 定义

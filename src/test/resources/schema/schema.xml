@@ -35,7 +35,7 @@
         <table file="app/tag_rel.xml" />
 
         <!-- file -->
-        <table file="app/upload_file.xml" />
+        <table file="app/upload_file_info.xml" />
         
     </table-list>
 

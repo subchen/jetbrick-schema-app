@@ -2,7 +2,7 @@ package jetbrick.schema.app.task;
 
 import java.util.Map;
 import jetbrick.schema.app.Task;
-import jetbrick.schema.app.modal.TableInfo;
+import jetbrick.schema.app.model.TableInfo;
 
 public class JetbrickOamTask extends Task {
 
@@ -18,6 +18,7 @@ public class JetbrickOamTask extends Task {
             context.put("table", table);
 
             writeFile("pojo.java.httl", getPackagePath() + "/dao/data/" + table.getTableClass() + ".java", context);
+            writeFile("pojo_row_mapper.java.httl", getPackagePath() + "/dao/data/" + table.getTableClass() + "RowMapper.java", context);
         }
 
         Map<String, Object> context = getTemplateContext();

@@ -2,8 +2,8 @@ package jetbrick.schema.app.reader;
 
 import java.io.File;
 import jetbrick.commons.xml.XmlNode;
-import jetbrick.schema.app.modal.BulkFile;
-import jetbrick.schema.app.modal.Schema;
+import jetbrick.schema.app.model.BulkFile;
+import jetbrick.schema.app.model.Schema;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

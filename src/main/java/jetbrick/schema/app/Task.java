@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.*;
 import jetbrick.commons.exception.SystemException;
 import jetbrick.dao.dialect.Dialect;
-import jetbrick.schema.app.modal.Schema;
+import jetbrick.schema.app.model.Schema;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
