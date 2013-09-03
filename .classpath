@@ -22,7 +22,7 @@
 	<classpathentry kind="lib" path="lib/slf4j-1.7.5-logback-1.0.11.jar"/>
 	<classpathentry kind="lib" path="lib/apache-commons-20130331.all.jar"/>
 	<classpathentry kind="lib" path="lib/fastjson-1.1.23.jar"/>
-	<classpathentry kind="lib" path="lib/httl-1.0.9-substyle.jar"/>
+	<classpathentry kind="lib" path="lib/httl-1.0.11.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

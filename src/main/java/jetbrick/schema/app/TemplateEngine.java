@@ -6,14 +6,24 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.Properties;
 import jetbrick.commons.exception.SystemException;
+import org.apache.commons.lang.StringUtils;
 
 public class TemplateEngine {
     private static final Engine engine = Engine.getEngine(null, getEngineConfig());
 
     private static Properties getEngineConfig() {
+        //@formatter:off
+        String[] methods = new String[] {
+            "jetbrick.schema.app.model.methods.JsonUtils",
+            "jetbrick.schema.app.model.methods.ChecksumUtils",
+            "jetbrick.schema.app.model.methods.TableInfoUtils",
+            "jetbrick.schema.app.model.methods.TableColumnUtils",
+        };
+        //@formatter:on
+
         Properties p = new Properties();
         p.setProperty("import.packages+", "jetbrick.schema.app.model");
-        p.setProperty("import.methods+", "jetbrick.schema.app.model.methods.JsonUtils, jetbrick.schema.app.model.methods.ChecksumUtils,jetbrick.schema.app.model.methods.TableInfoUtils,jetbrick.schema.app.model.methods.TableColumnUtils");
+        p.setProperty("import.methods+", StringUtils.join(methods, ","));
         p.setProperty("import.variables+", "Schema schema, TableInfo table");
 
         p.setProperty("input.encoding", "utf-8");
