@@ -4,7 +4,6 @@
  */
 package ${schema.packageName}.dao.data;
 
-import jetbrick.dao.id.SequenceId;
 import jetbrick.dao.schema.data.*;
 import jetbrick.dao.utils.DbUtils;
 import com.alibaba.fastjson.JSONObject;
@@ -57,10 +56,10 @@ public class ${table.tableClass} extends PersistentData {
     }
 
     //------- id ----------------------------------------------
-    private static final SequenceId sequence_id = DbUtils.dao().createSequenceId(SCHEMA);
+    private static final jetbrick.dao.id.SequenceId sequence_id = DbUtils.dao().createSequenceId(SCHEMA);
 
     @Override
-    public Long generateId() {
+    public Integer generateId() {
         if (id == null) {
             id = sequence_id.nextVal();
         }
