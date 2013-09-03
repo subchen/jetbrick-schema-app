@@ -22,7 +22,7 @@ public class ColumnUtils {
         TableColumn c = new TableColumn();
         c.setTable(table);
         c.setFieldName("id");
-        c.setFieldClass(Long.class);
+        c.setFieldClass(SubStyleType.getJavaClass(SubStyleType.ID));
         c.setColumnName("id");
         c.setTypeName(SubStyleType.ID);
         c.setTypeLength(null);
