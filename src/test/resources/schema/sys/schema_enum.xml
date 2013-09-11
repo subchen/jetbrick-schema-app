@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<table display_name="文件" description="全局枚举变量">
+
+    <column name="pid"
+            type="int"
+            display_name="分组ID"
+            />
+            
+    <column name="name"
+            type="varchar(50)"
+            display_name="名称"
+            />
+            
+    <column name="define_name"
+            type="varchar(50)"
+            nullable="true"
+            display_name="变量名"
+            />
+            
+    <column name="description"
+            type="char(32)"
+            nullable="true"
+            display_name="描述"
+            />
+
+</table>
+

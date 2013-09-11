@@ -26,6 +26,10 @@
     </enum-list>
 
     <table-list>
+        <!-- system table -->
+        <table file="sys/schema_checksum.xml" />
+        <table file="sys/schema_enum.xml" />
+    
         <!-- user -->
         <table file="app/login_info.xml" />
         
