@@ -4,8 +4,8 @@
  */
 package ${schema.packageName}.dao.data;
 
+import jetbrick.dao.oam.*;
 import jetbrick.dao.schema.data.*;
-import jetbrick.dao.utils.DbUtils;
 import com.alibaba.fastjson.JSONObject;
 
 // TABLE: ${table.displayName}(${table.tableName})
@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 // timestamp: ${now()}
 
 @SuppressWarnings("serial")
-public class ${table.tableClass} extends PersistentData {
+public class ${table.tableClass} extends Entity {
 
     //------ field list ---------------------------------------
 #for(TableColumn c : table.unpkColumns)
@@ -56,7 +56,7 @@ public class ${table.tableClass} extends PersistentData {
     }
 
     //------- id ----------------------------------------------
-    private static final jetbrick.dao.id.SequenceId sequence_id = DbUtils.dao().createSequenceId(SCHEMA);
+    private static final jetbrick.dao.id.SequenceId sequence_id = EntityUtils.createSequenceId(${table.tableClass}.class);
 
     @Override
     public Integer generateId() {
@@ -91,7 +91,8 @@ public class ${table.tableClass} extends PersistentData {
         if (rel_${rel.name} == null) {
             synchronized (this) {
                 if (rel_${rel.name} == null) {
-                    rel_${rel.name} = DbUtils.dao().get(${rel.reference.tableClass}.class, ${rel.column.fieldName});
+                    EntityDaoHelper dao = EntityUtils.getEntityDaoHelper(${rel.reference.tableClass}.class);
+                    rel_${rel.name} = dao.load(${rel.reference.tableClass}.class, ${rel.column.fieldName});
                 }
             }
         }
@@ -105,7 +106,8 @@ public class ${table.tableClass} extends PersistentData {
         if (rel_${rel.name} == null) {
             synchronized (this) {
                 if (rel_${rel.name} == null) {
-                    rel_${rel.name} = DbUtils.dao().getSome(${rel.column.table.tableClass}.class, "${rel.column.columnName}", id);
+                    EntityDaoHelper dao = EntityUtils.getEntityDaoHelper(${rel.column.table.tableClass}.class); 
+                    rel_${rel.name} = dao.loadSome(${rel.column.table.tableClass}.class, "${rel.column.fieldName}", id);
                 }
             }
         }
@@ -113,7 +115,31 @@ public class ${table.tableClass} extends PersistentData {
     }
  
 #end
-    //------ dao parameters -----------------------------------
+    //------ cache --------------------------------------------
+#if(table.cacheSupport)
+    public static final EntityCache CACHE = new EntityCache<${table.tableClass}>(${table.tableClass}.class.getName(), ${table.cacheMaxSize}, true, ${table.cacheMaxLiveSeconds}, ${table.cacheMaxIdleSeconds});
+#else
+    @SuppressWarnings("unchecked")
+    public static final EntityCache CACHE = EntityCache.NO_CACHE;
+#end
+
+    @Override
+    public EntityCache<${table.tableClass}> getCache() {
+        return CACHE;
+    }
+
+    //------ dao -----------------------------------
+#if(table.cacheSupport)
+    public static final EntityDaoHelper DAO_HELPER = EntityUtils.CACHED_DAO_HELPER;
+#else
+    public static final EntityDaoHelper DAO_HELPER = EntityUtils.DAO_HELPER;
+#end
+    
+    @Override
+    public EntityDaoHelper getEntityDaoHelper() {
+        return DAO_HELPER;
+    }
+    
     @Override
     public Object[] dao_insert_parameters() {
         return new Object[] { ${table.fieldlist(true)} };
@@ -123,6 +149,16 @@ public class ${table.tableClass} extends PersistentData {
     public Object[] dao_update_parameters() {
         return new Object[] { ${table.fieldlist(false)} };
     }
+
+    public static final RowMapper ROW_MAPPER = new RowMapper<${table.tableClass}>() {
+        public ${table.tableClass} handle(java.sql.ResultSet rs) throws java.sql.SQLException {
+            ${table.tableClass} info = new ${table.tableClass}();
+    #for(TableColumn c : table.columns)
+            info.${c.fieldName} = rs.${c.rsGetter()}("${c.fieldName}");
+    #end
+            return info;
+        }
+    };
 
     //------ validate -----------------------------------------
     @Override
@@ -143,29 +179,19 @@ public class ${table.tableClass} extends PersistentData {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (null == object) return false;
-        if (!(object instanceof ${table.tableClass})) return false;
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (obj.getClass() != getClass()) return false;
 
-        ${table.tableClass} o = (${table.tableClass}) object;
+        ${table.tableClass} o = (${table.tableClass}) obj;
+        //@formatter:off
+        return new org.apache.commons.lang3.builder.EqualsBuilder()
 #for(TableColumn c : table.columns)
-        if ((${c.fieldName} != o.${c.fieldName}) && !${c.fieldName}.equals(o.${c.fieldName})) return false;
+            .append(${c.fieldName}, o.${c.fieldName}) 
 #end
-        return true;
-    }
-
-    //------ cache --------------------------------------------
-#if(table.cacheSupport)
-    public static final PersistentCache CACHE = new PersistentCache<${table.tableClass}>(${table.tableClass}.class.getName(), ${table.cacheMaxSize}, true, ${table.cacheMaxLiveSeconds}, ${table.cacheMaxIdleSeconds});
-#else
-    @SuppressWarnings("unchecked")
-    public static final PersistentCache CACHE = PersistentCache.NO_CACHE;
-#end
-
-    @Override
-    public PersistentCache<${table.tableClass}> getCache() {
-        return CACHE;
+            .isEquals();
+        //@formatter:on
     }
 
     //------ instance -----------------------------------------

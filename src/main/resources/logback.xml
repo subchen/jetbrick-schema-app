@@ -19,7 +19,6 @@
 	</appender>
 	-->
 
-	<logger name="com.humpic" level="DEBUG" />
 	<logger name="jetbrick" level="DEBUG" />
 
 	<root level="INFO">

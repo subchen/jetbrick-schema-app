@@ -42,7 +42,7 @@ public class TemplateEngine {
         p.setProperty("value.filters", "");
         p.setProperty("text.filters", "");
         p.setProperty("json.codec", "httl.spi.codecs.FastjsonCodec");
-        p.setProperty("remove.directive.blank.line", "false");
+        p.setProperty("remove.directive.blank.line", "true");
 
         //p.setProperty("code.directory", "c:/temp");
 

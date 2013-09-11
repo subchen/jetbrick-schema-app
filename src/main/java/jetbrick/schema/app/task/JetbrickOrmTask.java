@@ -4,10 +4,10 @@ import java.util.Map;
 import jetbrick.schema.app.Task;
 import jetbrick.schema.app.model.TableInfo;
 
-public class JetbrickOamTask extends Task {
+public class JetbrickOrmTask extends Task {
 
-    public JetbrickOamTask() {
-        name = "oam";
+    public JetbrickOrmTask() {
+        name = "orm";
     }
 
     @Override
@@ -18,7 +18,6 @@ public class JetbrickOamTask extends Task {
             context.put("table", table);
 
             writeFile("pojo.java.httl", getPackagePath() + "/dao/data/" + table.getTableClass() + ".java", context);
-            writeFile("pojo_row_mapper.java.httl", getPackagePath() + "/dao/data/" + table.getTableClass() + "RowMapper.java", context);
         }
 
         Map<String, Object> context = getTemplateContext();

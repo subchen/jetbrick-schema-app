@@ -5,7 +5,7 @@
         <property name="package.name" value="jetbrick.sample" />   
         
         <!-- schema, oam, hibernate, report -->
-        <property name="task.name" value="schema, oam, report" />
+        <property name="task.name" value="schema, orm, report" />
         <property name="task.dialect" value="MySQL, SQLServer, H2" />
         
         <property name="output.encoding" value="utf-8" />
