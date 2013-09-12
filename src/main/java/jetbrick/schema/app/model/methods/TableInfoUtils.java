@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jetbrick.schema.app.model.TableColumn;
 import jetbrick.schema.app.model.TableInfo;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class TableInfoUtils {
 

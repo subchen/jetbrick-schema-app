@@ -6,7 +6,7 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.Properties;
 import jetbrick.commons.exception.SystemException;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class TemplateEngine {
     private static final Engine engine = Engine.getEngine(null, getEngineConfig());

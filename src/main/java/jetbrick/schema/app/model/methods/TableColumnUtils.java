@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import jetbrick.schema.app.model.EnumItem;
 import jetbrick.schema.app.model.TableColumn;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 
 public class TableColumnUtils {
 

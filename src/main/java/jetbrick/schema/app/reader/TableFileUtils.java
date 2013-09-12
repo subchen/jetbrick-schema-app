@@ -5,7 +5,7 @@ import java.util.List;
 import jetbrick.commons.lang.CamelCaseUtils;
 import jetbrick.commons.xml.XmlNode;
 import jetbrick.schema.app.model.*;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
