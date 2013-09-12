@@ -51,7 +51,7 @@
             />
             
     <column name="last_user_id"
-            type="ID"
+            type="uid"
             display-name="最后修改用户"
             >
          <one-to-many reference-table="login_info" import-name="last_user" export-name="auto" />

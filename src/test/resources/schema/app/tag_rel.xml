@@ -13,7 +13,7 @@
             display-name="Tag名称"
             />
     <column name="target_id"
-            type="ID"
+            type="uid"
             display-name="对应文章的ID"
             >
          <one-to-many reference-table="article_info" import-name="article" />

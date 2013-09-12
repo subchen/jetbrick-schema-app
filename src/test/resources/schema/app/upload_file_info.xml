@@ -14,7 +14,7 @@
     </column>     
         
     <column name="parent_id"
-            type="ID"
+            type="uid"
             display_name="ParentID"
             />
 
@@ -39,7 +39,7 @@
             />
 
     <column name="uploader_id"
-            type="ID"
+            type="uid"
             display_name="上传用户"
             >
          <one-to-many reference-table="login_info" import-name="uploader_user" export-name="auto" />

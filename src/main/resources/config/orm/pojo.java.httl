@@ -4,7 +4,7 @@
  */
 package ${schema.packageName}.dao.data;
 
-import jetbrick.dao.oam.*;
+import jetbrick.dao.orm.RowMapper;
 import jetbrick.dao.schema.data.*;
 import com.alibaba.fastjson.JSONObject;
 
@@ -27,7 +27,7 @@ public class ${table.tableClass} extends Entity {
 #end
 
     @Override
-    public SchemaInfo<${table.tableClass}> getSchema() {
+    public SchemaInfo<${table.tableClass}> schema() {
         return SCHEMA;
     }
 
@@ -91,8 +91,7 @@ public class ${table.tableClass} extends Entity {
         if (rel_${rel.name} == null) {
             synchronized (this) {
                 if (rel_${rel.name} == null) {
-                    EntityDaoHelper dao = EntityUtils.getEntityDaoHelper(${rel.reference.tableClass}.class);
-                    rel_${rel.name} = dao.load(${rel.reference.tableClass}.class, ${rel.column.fieldName});
+                    rel_${rel.name} = ${rel.reference.tableClass}.DAO.load(${rel.column.fieldName});
                 }
             }
         }
@@ -106,8 +105,7 @@ public class ${table.tableClass} extends Entity {
         if (rel_${rel.name} == null) {
             synchronized (this) {
                 if (rel_${rel.name} == null) {
-                    EntityDaoHelper dao = EntityUtils.getEntityDaoHelper(${rel.column.table.tableClass}.class); 
-                    rel_${rel.name} = dao.loadSome(${rel.column.table.tableClass}.class, "${rel.column.fieldName}", id);
+                    rel_${rel.name} = ${rel.column.table.tableClass}.DAO.loadSome("${rel.column.fieldName}", id);
                 }
             }
         }
@@ -124,20 +122,20 @@ public class ${table.tableClass} extends Entity {
 #end
 
     @Override
-    public EntityCache<${table.tableClass}> getCache() {
+    public EntityCache<${table.tableClass}> cache() {
         return CACHE;
     }
 
     //------ dao -----------------------------------
 #if(table.cacheSupport)
-    public static final EntityDaoHelper DAO_HELPER = EntityUtils.CACHED_DAO_HELPER;
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedEntityDaoHelper(JDBC, ${table.tableClass}.class);
 #else
-    public static final EntityDaoHelper DAO_HELPER = EntityUtils.DAO_HELPER;
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new EntityDaoHelper(JDBC, ${table.tableClass}.class);
 #end
     
     @Override
-    public EntityDaoHelper getEntityDaoHelper() {
-        return DAO_HELPER;
+    public EntityDaoHelper<${table.tableClass}> dao() {
+        return DAO;
     }
     
     @Override
@@ -150,7 +148,7 @@ public class ${table.tableClass} extends Entity {
         return new Object[] { ${table.fieldlist(false)} };
     }
 
-    public static final RowMapper ROW_MAPPER = new RowMapper<${table.tableClass}>() {
+    public static final RowMapper<${table.tableClass}> ROW_MAPPER = new RowMapper<${table.tableClass}>() {
         public ${table.tableClass} handle(java.sql.ResultSet rs) throws java.sql.SQLException {
             ${table.tableClass} info = new ${table.tableClass}();
     #for(TableColumn c : table.columns)

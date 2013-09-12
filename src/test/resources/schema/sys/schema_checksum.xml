@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<table display_name="文件" description="数据库表总揽">
+<table display-name="文件" description="数据库表总揽">
 
     <column name="name"
             type="varchar(50)"
-            display_name="名称"
+            display-name="名称"
             />
             
     <column name="type"
             type="varchar(50)"
-            display_name="名称"
+            display-name="名称"
             />
             
     <column name="checksum"
             type="char(32)"
-            display_name="校验码"
+            display-name="校验码"
             />
             
     <column name="timestamp"
             type="datetime"
-            display_name="时间戳"
+            display-name="时间戳"
             />
 
 </table>

@@ -22,9 +22,9 @@ public class ColumnUtils {
         TableColumn c = new TableColumn();
         c.setTable(table);
         c.setFieldName("id");
-        c.setFieldClass(SubStyleType.getJavaClass(SubStyleType.ID));
+        c.setFieldClass(SubStyleType.getJavaClass(SubStyleType.UID));
         c.setColumnName("id");
-        c.setTypeName(SubStyleType.ID);
+        c.setTypeName(SubStyleType.UID);
         c.setTypeLength(null);
         c.setTypeScale(null);
         c.setNullable(false);
@@ -63,7 +63,7 @@ public class ColumnUtils {
                 }
                 enumGroup.setIdentifier(table.getTableClass() + "_" + CamelCaseUtils.toCapitalizeCamelCase(c.getColumnName()));
                 enumGroup.setDescription(table.getDisplayName() + "->" + c.getDisplayName());
-                
+
                 c.setEnumGroup(enumGroup);
             }
         }
