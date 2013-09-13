@@ -37,4 +37,9 @@ public class TableInfoUtils {
         }
         return StringUtils.join(names, ", ");
     }
+    
+    public static String hibernateHbmFullPath(TableInfo t) {
+        String path = StringUtils.replace(t.getSchema().getPackageName(), ".", "/");
+        return path + "/data/hbm_" + t.getSchema().getDialect().getName() + "/" + t.getTableClass()+ ".hbm.xml";
+    }
 }
