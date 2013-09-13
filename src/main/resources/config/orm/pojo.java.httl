@@ -4,8 +4,9 @@
  */
 package ${schema.packageName}.dao.data;
 
-import jetbrick.dao.orm.RowMapper;
+import jetbrick.dao.orm.jdbc.RowMapper;
 import jetbrick.dao.schema.data.*;
+import jetbrick.dao.schema.data.jdbc.*;
 import com.alibaba.fastjson.JSONObject;
 
 // TABLE: ${table.displayName}(${table.tableName})
@@ -128,9 +129,9 @@ public class ${table.tableClass} extends Entity {
 
     //------ dao -----------------------------------
 #if(table.cacheSupport)
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedEntityDaoHelper(JDBC, ${table.tableClass}.class);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedJdbcEntityDaoHelper(JdbcEntity.DAOHelper, ${table.tableClass}.class);
 #else
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new EntityDaoHelper(JDBC, ${table.tableClass}.class);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new JdbcEntityDaoHelper(JdbcEntity.DAOHelper, ${table.tableClass}.class);
 #end
     
     @Override
