@@ -2,7 +2,7 @@ package jetbrick.schema.app.model;
 
 import java.io.File;
 import java.util.*;
-import jetbrick.commons.lang.*;
+import jetbrick.commons.lang.IdentityUtils;
 import jetbrick.dao.dialect.Dialect;
 import org.apache.commons.collections.map.ListOrderedMap;
 
@@ -86,7 +86,7 @@ public class Schema {
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
-    
+
     public String getPackageName() {
         return properties.getProperty("package.name");
     }

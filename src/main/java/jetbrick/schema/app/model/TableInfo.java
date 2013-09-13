@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class TableInfo {
     protected final Map<String, TableColumn> columns = new ListOrderedMap();
     protected String tableName;
-    protected String tableClass;  // 不带包名
+    protected String tableClass; // 不带包名
     protected String displayName;
     protected String description;
 

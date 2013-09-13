@@ -6,18 +6,18 @@ import jetbrick.schema.app.Task;
 
 public class SqlReportTask extends Task {
 
-	public SqlReportTask() {
-		name = "report";
-	}
+    public SqlReportTask() {
+        name = "report";
+    }
 
-	@Override
-	public void execute() throws Throwable {
-		for (Dialect dialect : getDialects()) {
-			schema.setDialect(dialect);
+    @Override
+    public void execute() throws Throwable {
+        for (Dialect dialect : getDialects()) {
+            schema.setDialect(dialect);
 
-			Map<String, Object> context = getTemplateContext();
-			writeFile("schema.html.httl", dialect.getName() + "_schema.html", context);
-		}
-	}
+            Map<String, Object> context = getTemplateContext();
+            writeFile("schema.html.httl", dialect.getName() + "_schema.html", context);
+        }
+    }
 
 }
