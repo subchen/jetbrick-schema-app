@@ -57,7 +57,7 @@ public class ${table.tableClass} extends Entity {
 
     //------- id ----------------------------------------------
 #if(table.pkIsNumeric())
-    private static final jetbrick.dao.id.SequenceId SEQ = EntityUtils.createSequenceId(${table.tableClass}.class);
+    private static final jetbrick.dao.id.SequenceId SEQ = EntityUtils.createSequenceId(${table.tableName});
     
     @Override
     public ${table.pk().simpleClassName()} generateId() {
@@ -141,9 +141,9 @@ public class ${table.tableClass} extends Entity {
 
     //------ dao -----------------------------------
 #if(table.cacheSupport)
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedHibernateEntityDaoHelper(HibernateEntity.DAOHelper, ${table.tableClass}.class);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedHibernateEntityDaoHelper(HibernateEntity.DAOHelper, ${table.tableClass}.class, SCHEMA);
 #else
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new HibernateEntityDaoHelper(HibernateEntity.DAOHelper, ${table.tableClass}.class);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new HibernateEntityDaoHelper(HibernateEntity.DAOHelper, ${table.tableClass}.class, SCHEMA);
 #end
     
     @Override

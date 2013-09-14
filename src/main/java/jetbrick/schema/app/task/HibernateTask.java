@@ -31,6 +31,7 @@ public class HibernateTask extends Task {
         Map<String, Object> context = getTemplateContext();
         for (Dialect dialect : getDialects()) {
             schema.setDialect(dialect);
+            writeFile("schema-hbm.xml.httl", "META-INF/schema-hbm-" + dialect.getName() + ".xml", context);
             writeFile("sessionFactory.xml.httl", "xml/" + dialect.getName() + "/appContext-sessionFactory.xml", context);
         }
     }

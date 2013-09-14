@@ -74,6 +74,7 @@
                 <include name="**/data/*.java" />
                 <include name="**/data/hbm_h2/*.xml" />
                 <include name="**/data/hbm_mysql/*.xml" />
+                <include name="META-INF/**" />
             </fileset>
         </copy>
 

@@ -58,7 +58,7 @@ public class ${table.tableClass} extends Entity {
 
     //------- id ----------------------------------------------
 #if(table.pkIsNumeric())
-    private static final jetbrick.dao.id.SequenceId SEQ = EntityUtils.createSequenceId(${table.tableClass}.class);
+    private static final jetbrick.dao.id.SequenceId SEQ = EntityUtils.createSequenceId(${table.tableName});
     
     @Override
     public ${table.pk().simpleClassName()} generateId() {
@@ -141,10 +141,20 @@ public class ${table.tableClass} extends Entity {
     }
 
     //------ dao -----------------------------------
+    public static final RowMapper<${table.tableClass}> ROW_MAPPER = new RowMapper<${table.tableClass}>() {
+        public ${table.tableClass} handle(java.sql.ResultSet rs) throws java.sql.SQLException {
+            ${table.tableClass} info = new ${table.tableClass}();
+    #for(TableColumn c : table.columns)
+            info.${c.fieldName} = rs.${c.rsGetter()}("${c.fieldName}");
+    #end
+            return info;
+        }
+    };
+
 #if(table.cacheSupport)
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedJdbcEntityDaoHelper(JdbcEntity.DAOHelper, ${table.tableClass}.class);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedJdbcEntityDaoHelper(JdbcEntity.DAOHelper, ${table.tableClass}.class, SCHEMA, ROW_MAPPER);
 #else
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new JdbcEntityDaoHelper(JdbcEntity.DAOHelper, ${table.tableClass}.class);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new JdbcEntityDaoHelper(JdbcEntity.DAOHelper, ${table.tableClass}.class, SCHEMA, ROW_MAPPER);
 #end
     
     @Override
@@ -161,16 +171,6 @@ public class ${table.tableClass} extends Entity {
     public Object[] dao_update_parameters() {
         return new Object[] { ${table.fieldlist(false)} };
     }
-
-    public static final RowMapper<${table.tableClass}> ROW_MAPPER = new RowMapper<${table.tableClass}>() {
-        public ${table.tableClass} handle(java.sql.ResultSet rs) throws java.sql.SQLException {
-            ${table.tableClass} info = new ${table.tableClass}();
-    #for(TableColumn c : table.columns)
-            info.${c.fieldName} = rs.${c.rsGetter()}("${c.fieldName}");
-    #end
-            return info;
-        }
-    };
 
     //------ validate -----------------------------------------
     @Override
