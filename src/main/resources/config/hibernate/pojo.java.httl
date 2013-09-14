@@ -17,7 +17,7 @@ public class ${table.tableClass} extends Entity {
 
     //------ field list ---------------------------------------
 #for(TableColumn c : table.unpkColumns)
-    protected ${c.fullFieldClass} ${c.fieldName};  // ${c.displayName}(${c.columnName})
+    protected ${c.fullClassName()} ${c.fieldName};  // ${c.displayName}(${c.columnName})
 #end
 
     //------ schema -------------------------------------------
@@ -48,7 +48,7 @@ public class ${table.tableClass} extends Entity {
 
         // column list
 #for(TableColumn c : table.columns)
-        SC_${c.columnName.toUpperCase} = schema.addColumn("${c.fieldName}", ${c.fullFieldClass}.class, "${c.columnName}", "${c.typeName}", ${toJSON(c.typeLength)}, ${toJSON(c.typeScale)}, ${c.nullable}, ${toJSON(c.defaultValue)}, ${toJSON(c.displayName)}, ${toJSON(c.description)}, ${c.primaryKey}, null, ${c.json});
+        SC_${c.columnName.toUpperCase} = schema.addColumn("${c.fieldName}", ${c.fullClassName()}.class, "${c.columnName}", "${c.typeName}", ${toJSON(c.typeLength)}, ${toJSON(c.typeScale)}, ${c.nullable}, ${toJSON(c.defaultValue)}, ${toJSON(c.displayName)}, ${toJSON(c.description)}, ${c.primaryKey}, null, ${c.json});
 #end
 
         // column validator
@@ -56,23 +56,37 @@ public class ${table.tableClass} extends Entity {
     }
 
     //------- id ----------------------------------------------
-    private static final jetbrick.dao.id.SequenceId sequence_id = EntityUtils.createSequenceId(${table.tableClass}.class);
-
-    @Override
-    public Integer generateId() {
-        if (id == null) {
-            id = sequence_id.nextVal();
-        }
-        return id;
-    }
+#if(table.pkIsNumeric())
+    private static final jetbrick.dao.id.SequenceId SEQ = EntityUtils.createSequenceId(${table.tableClass}.class);
     
+    @Override
+    public ${table.pk().simpleClassName()} generateId() {
+        if (id == null) {
+            id = SEQ.nextVal();
+        }
+        return (${table.pk().simpleClassName()}) id;
+    }
+#else
+    @Override
+    public ${table.pk().simpleClassName()} generateId() {
+        if (id == null) {
+            id = com.humpic.framework.commons.lang.IdentityUtils.uuid16();
+        }
+        return (${table.pk().simpleClassName()}) id;
+    }
+#end
+
+    public void setId(${table.pk().simpleClassName()} id) {
+        this.id = id;
+    }
+
     //------ getter / setter ----------------------------------
 #for(TableColumn c : table.unpkColumns)
-    public ${c.fullFieldClass} ${c.getter}() {
+    public ${c.fullClassName()} ${c.getter}() {
         return ${c.fieldName};
     }
 
-    public void ${c.setter}(${c.fullFieldClass} ${c.fieldName}) {
+    public void ${c.setter}(${c.fullClassName()} ${c.fieldName}) {
         this.${c.fieldName} = ${c.fieldName};
     }
 
@@ -105,7 +119,7 @@ public class ${table.tableClass} extends Entity {
         if (rel_${rel.name} == null) {
             synchronized (this) {
                 if (rel_${rel.name} == null) {
-                    rel_${rel.name} = ${rel.column.table.tableClass}.DAO.loadSome("${rel.column.fieldName}", id);
+                    rel_${rel.name} = ${rel.column.table.tableClass}.DAO.loadSomeEx("${rel.column.fieldName}", id);
                 }
             }
         }

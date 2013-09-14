@@ -41,7 +41,7 @@ public class TableFileUtils {
         table.setCacheMaxIdleSeconds(root.attribute("cache-idle-seconds").asInt(0));
         schema.addTable(table);
 
-        ColumnUtils.addDefaultPrimaryKey(table);
+        ColumnUtils.addDefaultPrimaryKey(table, root.attribute("primary-key-type").asString());
         ColumnUtils.mappingColumnList(table, root);
 
         //mappingSchemaPrimaryKey(table, root.element("primary-key"));

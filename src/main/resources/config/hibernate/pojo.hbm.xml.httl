@@ -10,13 +10,16 @@
 <hibernate-mapping>
     <class name="${table.fullClassName()}" table="${table.hbmTableName()}">
 
-        <id name="id" type="java.lang.Integer">
-            <column name="id" />
+        <id name="id" type="${table.pk().fullClassName()}">
+            ${table.pk().hbmColumnDefination()}
             <generator class="assigned" />
         </id>
 
 #foreach(TableColumn c in table.unpkColumns())
-        ${c.hbmColumnDefination()}
+		<property name="${c.fieldName}" type="${c.fullClassName()}" not-null="${!c.nullable}">
+        	${c.hbmColumnDefination()}
+    	</property>
+
 #end
     </class>
 </hibernate-mapping>

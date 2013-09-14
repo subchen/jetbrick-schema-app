@@ -8,6 +8,14 @@ import org.apache.commons.lang3.StringUtils;
 
 public class TableInfoUtils {
 
+    public static boolean pkIsNumeric(TableInfo t) {
+        return Number.class.isAssignableFrom(t.getPrimaryKey().getColumn().getFieldClass());
+    }
+
+    public static TableColumn pk(TableInfo t) {
+        return t.getPrimaryKey().getColumn();
+    }
+
     public static String fullClassName(TableInfo t) {
         return t.getSchema().getPackageName() + ".data." + t.getTableClass();
     }

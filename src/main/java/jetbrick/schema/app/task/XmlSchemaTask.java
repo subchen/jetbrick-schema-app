@@ -21,7 +21,7 @@ public class XmlSchemaTask extends Task {
         for (BulkFile bulk : schema.getBulkFiles()) {
             writeFile("META-INF/bulk/" + bulk.getFileName(), bulk.getContents());
         }
-        
+
         writeFile("GlobalsEnum.java.httl", getPackagePath() + "/config/GlobalsEnum.java", context);
     }
 

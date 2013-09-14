@@ -48,12 +48,16 @@ public class TableColumnUtils {
         return c.getTable().getSchema().getDialect().asSqlType(c.getTypeName(), c.getTypeLength(), c.getTypeScale());
     }
 
-    public static String fullFieldClass(TableColumn c) {
+    public static String simpleClassName(TableColumn c) {
         if (c.getFieldClass().getName().startsWith("java.lang.")) {
             return c.getFieldClass().getSimpleName();
         } else {
             return c.getFieldClass().getName();
         }
+    }
+
+    public static String fullClassName(TableColumn c) {
+        return c.getFieldClass().getName();
     }
 
     public static String enumGroupDescription(TableColumn c) {
@@ -91,14 +95,7 @@ public class TableColumnUtils {
     // hibernate hbm column 定义
     public static String hbmColumnDefination(TableColumn c) {
         StringBuffer sb = new StringBuffer();
-        sb.append("<property name='");
-        sb.append(c.getFieldName());
-        sb.append("' type='");
-        sb.append(c.getFieldClass().getName());
-        sb.append("' not-null='");
-        sb.append(!c.isNullable());
-        sb.append("'>\n");
-        sb.append("\t\t\t<column name='");
+        sb.append("<column name='");
         sb.append(StringEscapeUtils.escapeHtml4(c.getTable().getSchema().getDialect().getIdentifier(c.getColumnName())));
         sb.append("'");
         if (c.getTypeLength() != null) {
@@ -111,9 +108,7 @@ public class TableColumnUtils {
             sb.append(c.getTypeScale());
             sb.append("'");
         }
-        sb.append(" />\n");
-        sb.append("\t\t</property>");
-        sb.append("\n");
+        sb.append(" />");
         return StringUtils.replaceChars(sb.toString(), "'", "\"");
     }
 }

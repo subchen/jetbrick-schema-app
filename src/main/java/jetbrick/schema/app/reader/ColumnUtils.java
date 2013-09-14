@@ -15,18 +15,27 @@ import jetbrick.dao.schema.validator.Validator;
 import jetbrick.dao.schema.validator.ValidatorFactory;
 import jetbrick.schema.app.model.*;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class ColumnUtils {
 
-    public static void addDefaultPrimaryKey(TableInfo table) {
+    public static void addDefaultPrimaryKey(TableInfo table, String typeName) {
+        if (StringUtils.isBlank(typeName)) {
+            typeName = table.getSchema().getProperty("primary.key.type");
+        }
+        if (StringUtils.isBlank(typeName)) {
+            typeName = SubStyleType.UID;
+        }
+        SqlType type = SqlType.newInstance(typeName);
+
         TableColumn c = new TableColumn();
         c.setTable(table);
         c.setFieldName("id");
-        c.setFieldClass(SubStyleType.getJavaClass(SubStyleType.UID));
+        c.setFieldClass(SubStyleType.getJavaClass(type.getName()));
         c.setColumnName("id");
-        c.setTypeName(SubStyleType.UID);
-        c.setTypeLength(null);
-        c.setTypeScale(null);
+        c.setTypeName(type.getName());
+        c.setTypeLength(type.getLength());
+        c.setTypeScale(type.getScale());
         c.setNullable(false);
         c.setDefaultValue(null);
         c.setDisplayName("ID");
