@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 public class TableInfoUtils {
 
     public static String fullClassName(TableInfo t) {
-        return t.getSchema().getPackageName() + ".dao.data." + t.getTableClass();
+        return t.getSchema().getPackageName() + ".data." + t.getTableClass();
     }
 
     public static List<TableColumn> unpkColumns(TableInfo t) {
@@ -38,8 +38,12 @@ public class TableInfoUtils {
         return StringUtils.join(names, ", ");
     }
 
-    public static String hibernateHbmFullPath(TableInfo t) {
+    public static String hbmXmlFullPath(TableInfo t) {
         String path = StringUtils.replace(t.getSchema().getPackageName(), ".", "/");
         return path + "/data/hbm_" + t.getSchema().getDialect().getName() + "/" + t.getTableClass() + ".hbm.xml";
+    }
+
+    public static String hbmTableName(TableInfo t) {
+        return t.getSchema().getDialect().getIdentifier(t.getTableName());
     }
 }

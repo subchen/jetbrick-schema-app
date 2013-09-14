@@ -72,9 +72,6 @@ public class TableColumnUtils {
 
     public static String fieldDefaultValue(TableColumn c) {
         StringBuffer sb = new StringBuffer();
-        sb.append("this.");
-        sb.append(c.getFieldName());
-        sb.append(" = ");
         if (String.class.equals(c.getFieldClass())) {
             sb.append("\"");
             sb.append(StringEscapeUtils.escapeJava((String) c.getDefaultValue()));
@@ -92,7 +89,7 @@ public class TableColumnUtils {
     }
 
     // hibernate hbm column 定义
-    public static String getHbmColumnDefination(TableColumn c) {
+    public static String hbmColumnDefination(TableColumn c) {
         StringBuffer sb = new StringBuffer();
         sb.append("<property name='");
         sb.append(c.getFieldName());
@@ -116,6 +113,7 @@ public class TableColumnUtils {
         }
         sb.append(" />\n");
         sb.append("\t\t</property>");
+        sb.append("\n");
         return StringUtils.replaceChars(sb.toString(), "'", "\"");
     }
 }

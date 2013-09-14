@@ -19,8 +19,10 @@ public class XmlSchemaTask extends Task {
         writeFile("schema-bulk.xml.httl", "META-INF/schema-bulk.xml", context);
 
         for (BulkFile bulk : schema.getBulkFiles()) {
-            writeFile(bulk.getFileName(), bulk.getContents());
+            writeFile("META-INF/bulk/" + bulk.getFileName(), bulk.getContents());
         }
+        
+        writeFile("GlobalsEnum.java.httl", getPackagePath() + "/config/GlobalsEnum.java", context);
     }
 
 }

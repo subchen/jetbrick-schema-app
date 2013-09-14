@@ -4,6 +4,7 @@
 
 	<property file="${basedir}/build.properties" />
 	<property name="output" value="${basedir}/output" />
+    <property name="codegen_dest_dir" value="${basedir}/../src/main/codegen" />
 
     <path id="compile.classpath">
         <fileset dir="${basedir}/lib" includes="**/*.jar" />
@@ -63,4 +64,30 @@
 		</java>
 	</target>
 
+
+    <target name="deploy">
+        <delete dir="${codegen_dest_dir}" />
+        <mkdir dir="${codegen_dest_dir}" />
+
+        <copy todir="${codegen_dest_dir}" overwrite="true">
+            <fileset dir="${output}/hibernate">
+                <include name="**/data/*.java" />
+                <include name="**/data/hbm_h2/*.xml" />
+                <include name="**/data/hbm_mysql/*.xml" />
+            </fileset>
+        </copy>
+
+        <copy todir="${codegen_dest_dir}" overwrite="true">
+            <fileset dir="${output}/schema">
+                <include name="**/GlobalsEnum.java" />
+            </fileset>
+        </copy>
+
+        <copy todir="${codegen_dest_dir}" overwrite="true">
+            <fileset dir="${output}/schema">
+                <include name="META-INF/**" />
+            </fileset>
+        </copy>
+
+    </target>
 </project>

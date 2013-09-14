@@ -17,11 +17,8 @@ public class JetbrickOrmTask extends Task {
             Map<String, Object> context = getTemplateContext();
             context.put("table", table);
 
-            writeFile("pojo.java.httl", getPackagePath() + "/dao/data/" + table.getTableClass() + ".java", context);
+            writeFile("pojo.java.httl", getPackagePath() + "/data/" + table.getTableClass() + ".java", context);
         }
-
-        Map<String, Object> context = getTemplateContext();
-        writeFile("GlobalsEnum.java.httl", getPackagePath() + "/config/GlobalsEnum.java", context);
     }
 
 }

@@ -103,6 +103,10 @@ public class ColumnUtils {
             c.setJson(false);
         }
 
+        if ("id".equals(c.getColumnName())) {
+            throw new SystemException("id is duplicated with primary key for " + table.getTableName());
+        }
+
         // 外键引用
         XmlNode ref = node.element("one-to-many");
         if (ref != null) {

@@ -10,7 +10,7 @@
         <property name="mappingLocations">
             <list>
 #foreach(TableInfo table: schema.tables)
-                <value>classpath:${table.hibernateHbmFullPath()}</value>
+                <value>classpath:${table.hbmXmlFullPath()}</value>
 #end
             </list>
         </property>

@@ -2,11 +2,11 @@
 <schema>
 
     <properties>
-        <property name="package.name" value="jetbrick.sample" />   
+        <property name="package.name" value="jetbrick.sample.dao" />   
         
-        <!-- schema, oam, hibernate, report -->
-        <property name="task.name" value="schema, orm, report" />
-        <property name="task.dialect" value="MySQL, SQLServer, H2" />
+        <!-- schema, orm, hibernate, report -->
+        <property name="task.name" value="hibernate" />
+        <property name="task.dialect" value="MySQL, H2" />
         
         <property name="output.encoding" value="utf-8" />
         <property name="output.path" value="./output" />
