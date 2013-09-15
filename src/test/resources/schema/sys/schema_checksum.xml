@@ -9,7 +9,7 @@
             
     <column name="type"
             type="varchar(50)"
-            display-name="名称"
+            display-name="类型"
             />
             
     <column name="checksum"
