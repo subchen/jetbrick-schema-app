@@ -146,9 +146,9 @@ public class ${table.tableClass} extends Entity {
 
     //------ dao -----------------------------------
 #if(table.cacheSupport)
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedHibernateEntityDaoHelper(HibernateEntity.DAOHelper, ${table.tableClass}.class, SCHEMA, CACHE);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedHibernateEntityDaoHelper(HibernateEntity.DAO, ${table.tableClass}.class, SCHEMA, CACHE);
 #else
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new HibernateEntityDaoHelper(HibernateEntity.DAOHelper, ${table.tableClass}.class, SCHEMA);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new HibernateEntityDaoHelper(HibernateEntity.DAO, ${table.tableClass}.class, SCHEMA);
 #end
     
     @Override
