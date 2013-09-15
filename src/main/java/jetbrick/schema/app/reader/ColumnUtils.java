@@ -88,6 +88,10 @@ public class ColumnUtils {
         c.setJson(node.attribute("json").asBool(true));
 
         String typeName = node.attribute("type").asString().toLowerCase();
+        String aliasTypeName = table.getSchema().getTypeNameAlias().getProperty(typeName);
+        if (aliasTypeName != null) {
+            typeName = aliasTypeName;
+        }
         SqlType type = SqlType.newInstance(typeName);
         c.setTypeName(type.getName());
         c.setTypeLength(type.getLength());
