@@ -77,6 +77,11 @@ public class ${table.tableClass} extends Entity {
     }
 #end
 
+    @Override
+    public ${table.pk().simpleClassName()} getId() {
+        return (${table.pk().simpleClassName()}) id;
+    }
+
     public void setId(${table.pk().simpleClassName()} id) {
         this.id = id;
     }
