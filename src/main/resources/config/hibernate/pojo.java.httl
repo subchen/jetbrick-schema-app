@@ -26,11 +26,6 @@ public class ${table.tableClass} extends Entity {
     public static final SchemaColumn SC_${c.columnName.toUpperCase};
 #end
 
-    @Override
-    public SchemaInfo<${table.tableClass}> schema() {
-        return SCHEMA;
-    }
-
     static {
         SchemaInfoImpl<${table.tableClass}> schema = new SchemaInfoImpl<${table.tableClass}>();
         SCHEMA = schema;
@@ -139,23 +134,43 @@ public class ${table.tableClass} extends Entity {
     public static final EntityCache<${table.tableClass}> CACHE = EntityCache.NO_CACHE;
 #end
 
-    @Override
-    public EntityCache<${table.tableClass}> cache() {
-        return CACHE;
-    }
-
     //------ dao -----------------------------------
 #if(table.cacheSupport)
     public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedHibernateEntityDaoHelper(HibernateEntity.DAO, ${table.tableClass}.class, SCHEMA, CACHE);
 #else
     public static final EntityDaoHelper<${table.tableClass}> DAO = new HibernateEntityDaoHelper(HibernateEntity.DAO, ${table.tableClass}.class, SCHEMA);
 #end
-    
+
     @Override
-    public EntityDaoHelper<${table.tableClass}> dao() {
-        return DAO;
+    public int save() {
+        return DAO.save(this);
     }
-    
+
+    @Override
+    public int update() {
+        return DAO.update(this);
+    }
+
+    @Override
+    public int saveOrUpdate() {
+        return DAO.saveOrUpdate(this);
+    }
+
+    @Override
+    public int delete() {
+        return DAO.delete(this);
+    }
+
+    @Override
+    public Object[] dao_insert_parameters() {
+        return new Object[] { ${table.fieldlist(true)} };
+    }
+
+    @Override
+    public Object[] dao_update_parameters() {
+        return new Object[] { ${table.fieldlist(false)} };
+    }
+
     //------ validate -----------------------------------------
     @Override
     public void validate() {
