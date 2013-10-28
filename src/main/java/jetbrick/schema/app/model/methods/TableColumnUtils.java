@@ -19,7 +19,7 @@ public class TableColumnUtils {
     }
 
     public static String rsGetter(TableColumn c) {
-        Map<Class<?>,String> map = new HashMap<Class<?>, String>(20);
+        Map<Class<?>, String> map = new HashMap<Class<?>, String>(20);
         map.put(String.class, "String");
         map.put(Boolean.class, "Boolean");
         map.put(Byte.class, "Byte");
