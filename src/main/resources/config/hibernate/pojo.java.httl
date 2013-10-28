@@ -131,14 +131,15 @@ public class ${table.tableClass} extends Entity {
 #if(table.cacheSupport)
     public static final EntityCache<${table.tableClass}> CACHE = new EntityCache<${table.tableClass}>(${table.tableClass}.class.getName(), ${table.cacheMaxSize}, true, ${table.cacheMaxLiveSeconds}, ${table.cacheMaxIdleSeconds});
 #else
-    public static final EntityCache<${table.tableClass}> CACHE = EntityCache.NO_CACHE;
+    @SuppressWarnings("unchecked")
+    public static final EntityCache<${table.tableClass}> CACHE = (EntityCache<${table.tableClass}>) EntityCache.NO_CACHE;
 #end
 
     //------ dao -----------------------------------
 #if(table.cacheSupport)
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedHibernateEntityDaoHelper(HibernateEntity.DAO, ${table.tableClass}.class, SCHEMA, CACHE);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedHibernateEntityDaoHelper<${table.tableClass}>(HibernateEntity.DAO, ${table.tableClass}.class, SCHEMA, CACHE);
 #else
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new HibernateEntityDaoHelper(HibernateEntity.DAO, ${table.tableClass}.class, SCHEMA);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new HibernateEntityDaoHelper<${table.tableClass}>(HibernateEntity.DAO, ${table.tableClass}.class, SCHEMA);
 #end
 
     @Override

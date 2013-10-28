@@ -9,6 +9,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * 描述一个Table
  */
+@SuppressWarnings("unchecked")
 public class TableInfo {
     protected final Map<String, TableColumn> columns = new ListOrderedMap();
     protected String tableName;

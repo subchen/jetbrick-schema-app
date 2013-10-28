@@ -13,7 +13,7 @@ public class EnumGroup {
     protected String identifier;
     protected String description;
     protected EnumGroup parent;
-    protected List<EnumItem> items = new ArrayList();
+    protected List<EnumItem> items = new ArrayList<EnumItem>();
 
     public int getPid() {
         return pid;

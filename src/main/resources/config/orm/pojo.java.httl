@@ -132,7 +132,8 @@ public class ${table.tableClass} extends Entity {
 #if(table.cacheSupport)
     public static final EntityCache<${table.tableClass}> CACHE = new EntityCache<${table.tableClass}>(${table.tableClass}.class.getName(), ${table.cacheMaxSize}, true, ${table.cacheMaxLiveSeconds}, ${table.cacheMaxIdleSeconds});
 #else
-    public static final EntityCache<${table.tableClass}> CACHE = EntityCache.NO_CACHE;
+    @SuppressWarnings("unchecked")
+    public static final EntityCache<${table.tableClass}> CACHE = (EntityCache<${table.tableClass}>) EntityCache.NO_CACHE;
 #end
 
     //------ dao -----------------------------------
@@ -147,9 +148,9 @@ public class ${table.tableClass} extends Entity {
     };
 
 #if(table.cacheSupport)
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedJdbcEntityDaoHelper(JdbcEntity.DAO, ${table.tableClass}.class, SCHEMA, ROW_MAPPER, CACHE);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new CachedJdbcEntityDaoHelper<${table.tableClass}>(JdbcEntity.DAO, ${table.tableClass}.class, SCHEMA, ROW_MAPPER, CACHE);
 #else
-    public static final EntityDaoHelper<${table.tableClass}> DAO = new JdbcEntityDaoHelper(JdbcEntity.DAO, ${table.tableClass}.class, SCHEMA, ROW_MAPPER);
+    public static final EntityDaoHelper<${table.tableClass}> DAO = new JdbcEntityDaoHelper<${table.tableClass}>(JdbcEntity.DAO, ${table.tableClass}.class, SCHEMA, ROW_MAPPER);
 #end
 
     @Override

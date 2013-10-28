@@ -21,7 +21,7 @@ public class TableInfoUtils {
     }
 
     public static List<TableColumn> unpkColumns(TableInfo t) {
-        List<TableColumn> list = new ArrayList(t.getColumns().size() - 1);
+        List<TableColumn> list = new ArrayList<TableColumn>(t.getColumns().size() - 1);
         for (TableColumn c : t.getColumns()) {
             if (!c.isPrimaryKey()) {
                 list.add(c);
@@ -31,7 +31,7 @@ public class TableInfoUtils {
     }
 
     public static String fieldlist(TableInfo t, boolean pkFirst) {
-        List<String> names = new ArrayList();
+        List<String> names = new ArrayList<String>();
         for (TableColumn c : t.getColumns()) {
             if (!c.isPrimaryKey()) {
                 names.add(c.getFieldName());

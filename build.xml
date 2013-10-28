@@ -64,7 +64,6 @@
 		</java>
 	</target>
 
-
     <target name="deploy">
         <delete dir="${codegen_dest_dir}" />
         <mkdir dir="${codegen_dest_dir}" />

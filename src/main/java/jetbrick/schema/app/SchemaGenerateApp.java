@@ -15,8 +15,8 @@ import org.slf4j.LoggerFactory;
  */
 public class SchemaGenerateApp {
     protected static final Logger log = LoggerFactory.getLogger(SchemaGenerateApp.class);
-    protected Map<String, Task> tasks = new HashMap();
-    protected Schema schema;
+    protected final Map<String, Task> tasks = new HashMap<String, Task>();
+    protected final Schema schema;
 
     public SchemaGenerateApp(String schemaFilename) {
         log.debug("schemaFilename = " + schemaFilename);

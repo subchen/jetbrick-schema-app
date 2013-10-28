@@ -9,6 +9,7 @@ import org.apache.commons.collections.map.ListOrderedMap;
 /**
  * 管理所有的表，bulk文件，EnumGroup，全局配置等等
  */
+@SuppressWarnings("unchecked")
 public class Schema {
     protected File schemaFile;
     protected Dialect dialect;
@@ -17,7 +18,7 @@ public class Schema {
     protected Properties typeNameAlias = new Properties();
     protected Map<Integer, EnumGroup> enumGroups = new ListOrderedMap();
     protected Map<String, TableInfo> tables = new ListOrderedMap();
-    protected List<BulkFile> bulkFiles = new ArrayList();
+    protected List<BulkFile> bulkFiles = new ArrayList<BulkFile>();
 
     public File getSchemaFile() {
         return schemaFile;

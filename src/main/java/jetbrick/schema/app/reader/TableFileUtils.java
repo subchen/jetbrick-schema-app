@@ -35,7 +35,7 @@ public class TableFileUtils {
         table.setTableClass(CamelCaseUtils.toCapitalizeCamelCase(table.getTableName()));
         table.setDisplayName(root.attribute("display-name").asString());
         table.setDescription(root.attribute("description").asString());
-        table.setCacheSupport(root.attribute("cache").asBool(false));
+        table.setCacheSupport(root.attribute("cache").asBoolean(false));
         table.setCacheMaxSize(root.attribute("cache-size").asInt(0));
         table.setCacheMaxLiveSeconds(root.attribute("cache-live-seconds").asInt(0));
         table.setCacheMaxIdleSeconds(root.attribute("cache-idle-seconds").asInt(0));

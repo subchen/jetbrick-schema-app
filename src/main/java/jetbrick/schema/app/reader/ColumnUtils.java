@@ -82,10 +82,10 @@ public class ColumnUtils {
         TableColumn c = new TableColumn();
         c.setTable(table);
         c.setColumnName(node.attribute("name").asString());
-        c.setNullable(node.attribute("nullable").asBool(false));
+        c.setNullable(node.attribute("nullable").asBoolean(false));
         c.setDisplayName(node.attribute("display-name").asString());
         c.setDescription(node.attribute("description").asString());
-        c.setJson(node.attribute("json").asBool(true));
+        c.setJson(node.attribute("json").asBoolean(true));
 
         String typeName = node.attribute("type").asString().toLowerCase();
         String aliasTypeName = table.getSchema().getTypeNameAlias().getProperty(typeName);
