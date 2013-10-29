@@ -4,7 +4,7 @@
     <properties>
         <property name="package.name" value="jetbrick.sample.dao" />   
         
-        <!-- schema, orm, hibernate, report -->
+        <!-- schema, orm, hibernate, sql, report -->
         <property name="task.name" value="hibernate" />
         <property name="task.dialect" value="MySQL, H2" />
         

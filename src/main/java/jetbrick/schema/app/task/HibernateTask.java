@@ -22,17 +22,17 @@ public class HibernateTask extends Task {
 
             for (Dialect dialect : getDialects()) {
                 schema.setDialect(dialect);
-                writeFile("pojo.hbm.xml.httl", packagePath + "/data/hbm_" + dialect.getName() + "/" + table.getTableClass() + ".hbm.xml", context);
+                writeFile("pojo.hbm.xml.jetx", packagePath + "/data/hbm_" + dialect.getName() + "/" + table.getTableClass() + ".hbm.xml", context);
             }
 
-            writeFile("pojo.java.httl", packagePath + "/data/" + table.getTableClass() + ".java", context);
+            writeFile("pojo.java.jetx", packagePath + "/data/" + table.getTableClass() + ".java", context);
         }
 
         Map<String, Object> context = getTemplateContext();
         for (Dialect dialect : getDialects()) {
             schema.setDialect(dialect);
-            writeFile("schema-hbm.xml.httl", "META-INF/schema-hbm-" + dialect.getName() + ".xml", context);
-            writeFile("sessionFactory.xml.httl", "xml/" + dialect.getName() + "/appContext-sessionFactory.xml", context);
+            writeFile("schema-hbm.xml.jetx", "META-INF/schema-hbm-" + dialect.getName() + ".xml", context);
+            writeFile("sessionFactory.xml.jetx", "xml/" + dialect.getName() + "/appContext-sessionFactory.xml", context);
         }
     }
 

@@ -19,7 +19,7 @@
     <div>
         <a href="#top" style="float:right;">top</a>
         <a name="${t.tableName}"></a>
-        <h3>${t.displayName} (${t.tableName}) (${t.fullClassName})</h3>
+        <h3>${t.displayName} (${t.tableName}) (${t.fullClassName()})</h3>
     </div>
     <table cellPadding="4" cellSpacing="1" border="0" style="background-color:black; width:100%;">
         <tr style="background-color:#cc6600; color:white; text-align:center;">
@@ -35,11 +35,11 @@
         <tr style="background-color:white;">
             <td>${c.displayName}</td>
             <td>${c.columnName}</td>
-            <td>${c.sqlTypeName}</td>
+            <td>${c.sqlTypeName()}</td>
             <td align="center">${c.nullable ? 'yes' : ''}</td>
             <td align="center">${c.primaryKey ? 'yes' : ''}</td>
             <td style="word-break:break-all;">${c.defaultValue}</td>
-            <td style="word-break:break-all;">${c.enumGroupDescription}</td>
+            <td style="word-break:break-all;">${c.enumGroupDescription()}</td>
         </tr>
     #end
     </table>

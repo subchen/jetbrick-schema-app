@@ -9,21 +9,21 @@ import jetbrick.dao.schema.data.hibernate.*;
 import com.alibaba.fastjson.JSONObject;
 
 // TABLE: ${table.displayName}(${table.tableName})
-// checksum: ${table.checksum}
-// timestamp: ${now()}
+// checksum: ${table.checksum()}
+// timestamp: ${new Date()}
 
 @SuppressWarnings({"serial", "unchecked"})
 public class ${table.tableClass} extends Entity {
 
     //------ field list ---------------------------------------
-#for(TableColumn c : table.unpkColumns)
-    protected ${c.fullClassName()} ${c.fieldName};  // ${c.displayName}(${c.columnName})
+#for(TableColumn c : table.unpkColumns())
+    protected ${c.simpleClassName()} ${c.fieldName};  // ${c.displayName}(${c.columnName})
 #end
 
     //------ schema -------------------------------------------
     public static final SchemaInfo<${table.tableClass}> SCHEMA;
 #for(TableColumn c : table.columns)
-    public static final SchemaColumn SC_${c.columnName.toUpperCase};
+    public static final SchemaColumn SC_${c.columnName.toUpperCase()};
 #end
 
     static {
@@ -38,12 +38,12 @@ public class ${table.tableClass} extends Entity {
         schema.setCacheMaxIdleSeconds(${table.cacheMaxIdleSeconds});
         schema.setDisplayName(${toJSON(table.displayName)});
         schema.setDescription(${toJSON(table.description)});
-        schema.setChecksum("${table.checksum}");
-        schema.setTimestamp("${now()}");
+        schema.setChecksum("${table.checksum()}");
+        schema.setTimestamp("${new Date()}");
 
         // column list
 #for(TableColumn c : table.columns)
-        SC_${c.columnName.toUpperCase} = schema.addColumn("${c.fieldName}", ${c.fullClassName()}.class, "${c.columnName}", "${c.typeName}", ${toJSON(c.typeLength)}, ${toJSON(c.typeScale)}, ${c.nullable}, ${toJSON(c.defaultValue)}, ${toJSON(c.displayName)}, ${toJSON(c.description)}, ${c.primaryKey}, null, ${c.json});
+        SC_${c.columnName.toUpperCase()} = schema.addColumn("${c.fieldName}", ${c.fullClassName()}.class, "${c.columnName}", "${c.typeName}", ${toJSON(c.typeLength)}, ${toJSON(c.typeScale)}, ${c.nullable}, ${toJSON(c.defaultValue)}, ${toJSON(c.displayName)}, ${toJSON(c.description)}, ${c.primaryKey}, null, ${c.json});
 #end
 
         // column validator
@@ -81,25 +81,25 @@ public class ${table.tableClass} extends Entity {
     }
 
     //------ getter / setter ----------------------------------
-#for(TableColumn c : table.unpkColumns)
-    public ${c.fullClassName()} ${c.getter}() {
+#for(TableColumn c : table.unpkColumns())
+    public ${c.simpleClassName()} ${c.getter()}() {
         return ${c.fieldName};
     }
 
-    public void ${c.setter}(${c.fullClassName()} ${c.fieldName}) {
+    public void ${c.setter()}(${c.simpleClassName()} ${c.fieldName}) {
         this.${c.fieldName} = ${c.fieldName};
     }
 
 #end
     //------ one-to-many --------------------------------------
-#for(OneToManyRelation rel in table.importedRelations)
+#for(OneToManyRelation rel : table.importedRelations)
     private ${rel.reference.tableClass} rel_${rel.name};
 #end
-#for(OneToManyRelation rel in table.exportedRelations)
+#for(OneToManyRelation rel : table.exportedRelations)
     private java.util.List<${rel.column.table.tableClass}> rel_${rel.name};
 #end
 
-#for(OneToManyRelation rel in table.importedRelations)
+#for(OneToManyRelation rel : table.importedRelations)
     public ${rel.reference.tableClass} ${rel.name}() {
         if (${rel.column.fieldName} == null) return null;
         if (rel_${rel.name} == null) {
@@ -113,7 +113,7 @@ public class ${table.tableClass} extends Entity {
     }
 
 #end
-#for(OneToManyRelation rel in table.exportedRelations)
+#for(OneToManyRelation rel : table.exportedRelations)
     public java.util.List<${rel.column.table.tableClass}> ${rel.name}() {
         if (id == null) return java.util.Collections.emptyList();
         if (rel_${rel.name} == null) {
@@ -175,8 +175,8 @@ public class ${table.tableClass} extends Entity {
     //------ validate -----------------------------------------
     @Override
     public void validate() {
-#for(TableColumn c : table.unpkColumns)
-        validate(SC_${c.columnName.toUpperCase}, ${c.fieldName});
+#for(TableColumn c : table.unpkColumns())
+        validate(SC_${c.columnName.toUpperCase()}, ${c.fieldName});
 #end
     }
 

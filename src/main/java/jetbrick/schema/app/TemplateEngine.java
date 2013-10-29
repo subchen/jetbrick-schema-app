@@ -1,15 +1,15 @@
 package jetbrick.schema.app;
 
-import httl.Engine;
-import httl.Template;
 import java.io.StringWriter;
 import java.util.Map;
 import java.util.Properties;
 import jetbrick.commons.exception.SystemException;
+import jetbrick.template.*;
+import jetbrick.template.resource.loader.ClasspathResourceLoader;
 import org.apache.commons.lang3.StringUtils;
 
 public class TemplateEngine {
-    private static final Engine engine = Engine.getEngine(null, getEngineConfig());
+    private static final JetEngine engine = new JetEngine(getEngineConfig());
 
     private static Properties getEngineConfig() {
         //@formatter:off
@@ -19,45 +19,24 @@ public class TemplateEngine {
             "jetbrick.schema.app.model.methods.TableInfoUtils",
             "jetbrick.schema.app.model.methods.TableColumnUtils",
         };
+        String[] functions = new String[] {
+            "jetbrick.schema.app.model.methods.JsonUtils",
+        };
         //@formatter:on
 
-        Properties p = new Properties();
-        p.setProperty("import.packages+", "jetbrick.schema.app.model");
-        p.setProperty("import.methods+", StringUtils.join(methods, ","));
-        p.setProperty("import.variables+", "Schema schema, TableInfo table");
-
-        p.setProperty("input.encoding", "utf-8");
-        p.setProperty("output.encoding", "utf-8");
-
-        p.setProperty("reloadable", "false");
-        p.setProperty("precompiled", "false");
-        p.setProperty("compiler", "httl.spi.compilers.JavassistCompiler");
-        p.setProperty("loggers", "httl.spi.loggers.Slf4jLogger");
-
-        p.setProperty("loaders", "httl.spi.loaders.ClasspathLoader");
-        p.setProperty("template.directory", "");
-        p.setProperty("template.suffix", ".httl");
-
-        p.setProperty("value.switchers", "");
-        p.setProperty("value.filters", "");
-        p.setProperty("text.filters", "");
-        p.setProperty("json.codec", "httl.spi.codecs.FastjsonCodec");
-        p.setProperty("remove.directive.blank.line", "true");
-
-        //p.setProperty("code.directory", "c:/temp");
-
-        p.setProperty("output.stream", "false");
-        p.setProperty("output.writer", "true");
-
-        p.setProperty("source.in.class", "false");
-        p.setProperty("text.in.class", "false");
-
-        return p;
+        Properties config = new Properties();
+        config.setProperty(JetConfig.IMPORT_PACKAGES, "jetbrick.schema.app.model");
+        config.setProperty(JetConfig.IMPORT_METHODS, StringUtils.join(methods, ","));
+        config.setProperty(JetConfig.IMPORT_FUNCTIONS, StringUtils.join(functions, ","));
+        config.setProperty(JetConfig.IMPORT_VARIABLES, "Schema schema, TableInfo table");
+        config.setProperty(JetConfig.TEMPLATE_LOADER, ClasspathResourceLoader.class.getName());
+        config.setProperty(JetConfig.TEMPLATE_PATH, "/");
+        return config;
     }
 
     public static String apply(String file, Map<String, Object> context) {
         try {
-            Template template = engine.getTemplate(file);
+            JetTemplate template = engine.getTemplate(file);
             StringWriter writer = new StringWriter();
             template.render(context, writer);
             return writer.toString();

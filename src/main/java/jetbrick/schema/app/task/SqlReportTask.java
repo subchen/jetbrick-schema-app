@@ -16,7 +16,7 @@ public class SqlReportTask extends Task {
             schema.setDialect(dialect);
 
             Map<String, Object> context = getTemplateContext();
-            writeFile("schema.html.httl", dialect.getName() + "_schema.html", context);
+            writeFile("schema.html.jetx", dialect.getName() + "_schema.html", context);
         }
     }
 

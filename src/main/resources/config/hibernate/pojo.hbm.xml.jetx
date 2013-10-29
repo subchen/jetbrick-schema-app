@@ -15,7 +15,7 @@
             <generator class="assigned" />
         </id>
 
-#foreach(TableColumn c in table.unpkColumns())
+#for(TableColumn c: table.unpkColumns())
 		<property name="${c.fieldName}" type="${c.fullClassName()}" not-null="${!c.nullable}">
         	${c.hbmColumnDefination()}
     	</property>
