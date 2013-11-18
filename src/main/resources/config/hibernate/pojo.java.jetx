@@ -65,7 +65,7 @@ public class ${table.tableClass} extends Entity {
     @Override
     public ${table.pk().simpleClassName()} generateId() {
         if (id == null) {
-            id = com.humpic.framework.commons.lang.IdentityUtils.uuid16();
+            id = jetbrick.commons.lang.IdentityUtils.uuid16();
         }
         return (${table.pk().simpleClassName()}) id;
     }
